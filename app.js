@@ -43,8 +43,7 @@ app.use('/css', express.static('css'))
 app.get('/select/:id?', function(req, res){
     if(!req.params.id){
      sql.query("select * from user order by id asc", function(err,results,fields){
-         res.render('select',{data:results})
-         alert('teste')
+         res.render('select',{data:results})          
      })
     }else{
         sql.query("select * from user where id=?",[req.params.id], function(err,results,fields){
