@@ -1,0 +1,20 @@
+<H1>CRUD NODE</H1>
+<hr>
+<table>
+    <tr>
+        <td>Action</td>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Age</td>
+    </tr>
+    {{#data}}
+    <tr>    
+        <td> <a href="deletar/{{id}}" class="delete" id="delete">Deletar<img src="/img/lixeira.png" alt="lixeira"></a>
+          <a href="update/{{id}}"> Atualizar<img src="/img/update.png" alt="Atualizar"></a>   
+        </td>
+        <td>{{id}}</td>
+        <td>{{name}}</td>
+        <td>{{age}}</td>
+    </tr>
+    {{/data}}
+</table>

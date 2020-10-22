@@ -1,0 +1,30 @@
+body{
+    background-color: blueviolet;
+    color: cornsilk;
+    font-family: monospace;
+    margin: 5px;
+
+}
+
+a:link, a:visited{
+    color: cornsilk;
+    font-size: large;
+}
+
+img{
+    width: 20px;
+    margin-right: 10px;
+}
+
+table{
+    width: 100%;
+    text-align: center;
+}
+
+table td{
+    width: 20%;
+}
+
+table tr:first-child{
+    background-color: floralwhite;color: purple;font-weight: bolder;
+}
