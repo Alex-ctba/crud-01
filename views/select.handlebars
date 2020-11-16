@@ -10,15 +10,25 @@
         <td>ID</td>
         <td>Name</td>
         <td>Age</td>
+          <td>Email</td>
+                <td>Bairro</td>
+                      <td>Cidade</td>
+                            <td>Escolaridade</td>
+                                  <td>Nascimento</td>
     </tr>
     {{#data}}
     <tr>    
         <td> <a href="deletar/{{id}}" class="delete" id="delete">Deletar<img src="/img/lixeira.png" alt="lixeira"></a>
           <a href="update/{{id}}"> Atualizar<img src="/img/update.png" alt="Atualizar"></a>   
-        </td>
+        </td>       
         <td>{{id}}</td>
         <td>{{name}}</td>
         <td>{{age}}</td>
+        <td>{{email}}</td>
+        <td>{{bairro}}</td>
+         <td>{{cidade}}</td>
+          <td>{{Escolaridade}}</td>
+           <td>{{nascimento}}</td>
     </tr>
     {{/data}}
 </table>

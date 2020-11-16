@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const mysql = require('mysql')
 const handlebars = require('express-handlebars')
-const { RSA_NO_PADDING } = require('constants')
+ 
 const app = express()
 const urlencodeparser = bodyParser.urlencoded({extended:false})
 const sql = mysql.createConnection({
@@ -19,7 +19,7 @@ sql.connect(function(err){
         console.log('Conexão realizada com Sucesso!')    
 })
 
-
+app.use(express.json())
 //engine dos templates handlebars
 app.engine("handlebars", handlebars({defaultLayout:'main'}))
 app.set('view engine', 'handlebars')
@@ -30,24 +30,39 @@ app.get("/", function(req, res){
 }) 
 
 //criando rotas dos arquivos css e javascript
+app.get('/inserir', function(req, res){res.render('inserir')
+})
 
-app.get('/inserir', function(req, res){res.render('inserir')})
-app.post("/controllerform", urlencodeparser,function(req,res){
-    sql.query('insert into user values(?,?,?)', [req.body.id,req.body.name,req.body.age])
-    res.render('controllerform')  
-  
+app.post("/controllerform", urlencodeparser,function(req,res){  
+
+sql.query('insert into user values(?,?,?,?,?,?,?,?)', [req.body.id,req.body.name,req.body.age,req.body.email,req.body.bairro,req.body.cidade,req.body.Escolaridade,req.body.nascimento]);
+res.render('controllerform')  
 })
 app.use('/img', express.static('img'))
 app.use('/js', express.static('js'))
 app.use('/css', express.static('css'))
-app.get('/select/:id?', function(req, res){
+
+app.get('/select/:id?', function(req, res){   
     if(!req.params.id){
      sql.query("select * from user order by id asc", function(err,results,fields){
-         res.render('select',{data:results})          
+         
+     
+        const [{ id, name, age, email, bairro, cidade, Escolaridade, nascimento }] = results
+
+        var nasc_conv = new Date(nascimento)
+        var ano = nasc_conv.getDate()
+        var mes = nasc_conv.getMonth()
+        var dia = nasc_conv.getDate()
+        var date_nasc= `${ano}/${mes}/${dia}`
+
+        results.nascimento = date_nasc
+        console.log(results.nascimento)
+         res.render('select',{ data:results })  
+       
      })
     }else{
         sql.query("select * from user where id=?",[req.params.id], function(err,results,fields){
-            res.render('select',{data:results})
+            res.render('select',{ data:results })         
         })
     }
    
@@ -66,7 +81,7 @@ app.get('/update/:id', function(req, res){
 })
 
 app.post('/update/atualiza', urlencodeparser, function(req,res){
-    sql.query('update user set name=?, age=? where id=?', [req.body.name,req.body.age,req.body.id])
+    sql.query('update user set name=?, age=?, email=?, bairro=?, cidade=?, Escolaridde=?, nascimento=?, where id=?', [req.body.name,req.body.age,req.body.email,req.body.bairro,req.body.cidade,req.body.Escolaridade,req.body.nascimento,req.body.id])
     res.render('atualiza')
 })
 
