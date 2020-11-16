@@ -1,5 +1,6 @@
 <H1><a href="/">CRUD NODE</a></H1>
 <hr>
+<button>Teste Add Values</button>
 <form action="controllerform" method="post" name="form1">
    <input type="hidden"  name="id" id="id" placeholder="id"><br>
 
@@ -11,5 +12,23 @@
     <input type="text" name="ensino" id="ensino" placeholder="Escolaridade"><br>
     <input type="text" name="nascimento" id="nascimento" placeholder="Nascimento"><br>
     <input type="submit" name="btnsubmit" id="btnsubmit" value="Add"> 
-
+<script>
+var addValuesTest = document.querySelector('button')
+var nome = document.getElementById('name')
+var age = document.getElementById('age')
+var email = document.getElementById('email')
+var bairro = document.getElementById('bairro')
+var cidade = document.getElementById('cidade')
+var ensino = document.getElementById('ensino')
+var nascimento = document.getElementById('nascimento')
+addValuesTest.onclick = function(){
+    nome.value = 'User Test'
+    age.value =  52
+    email.value = 'teste@teste.com.br'
+    bairro.value = 'uberaba'
+    cidade.value = 'Curitiba'
+    ensino.value = 'Analfabeto atualmente'
+    nascimento.value='1988-06-02'
+}
+</script>
 </form>
