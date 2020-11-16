@@ -1,3 +1,5 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap');
 body{
     background-color: blueviolet;
     color: cornsilk;
@@ -45,4 +47,10 @@ table tr:first-child{
 
  .pagina-inicial a:hover{
     background-color: rgb(161, 69, 247);
+}
+
+h1 a {
+    text-decoration: none;
+    font-size: 5rem;
+    font-family: 'Nunito', sans-serif;
 }

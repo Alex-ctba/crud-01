@@ -35,7 +35,7 @@ app.get('/inserir', function(req, res){res.render('inserir')
 
 app.post("/controllerform", urlencodeparser,function(req,res){  
 
-sql.query('insert into user values(?,?,?,?,?,?,?,?)', [req.body.id,req.body.name,req.body.age,req.body.email,req.body.bairro,req.body.cidade,req.body.Escolaridade,req.body.nascimento]);
+sql.query('insert into user values(?,?,?,?,?,?,?,?)', [req.body.id,req.body.name,req.body.age,req.body.email,req.body.bairro,req.body.cidade,req.body.ensino,req.body.nascimento]);
 res.render('controllerform')  
 })
 app.use('/img', express.static('img'))
@@ -45,19 +45,8 @@ app.use('/css', express.static('css'))
 app.get('/select/:id?', function(req, res){   
     if(!req.params.id){
      sql.query("select * from user order by id asc", function(err,results,fields){
-         
-     
-        const [{ id, name, age, email, bairro, cidade, Escolaridade, nascimento }] = results
-
-        var nasc_conv = new Date(nascimento)
-        var ano = nasc_conv.getDate()
-        var mes = nasc_conv.getMonth()
-        var dia = nasc_conv.getDate()
-        var date_nasc= `${ano}/${mes}/${dia}`
-
-        results.nascimento = date_nasc
-        console.log(results.nascimento)
-         res.render('select',{ data:results })  
+       
+        res.render('select',{ data:results })  
        
      })
     }else{
@@ -74,15 +63,17 @@ app.get('/deletar/:id', function(req, res){
 
 app.get('/update/:id', function(req, res){
     sql.query('select * from user where id=?', [req.params.id], function(err, results, fields){
-        res.render('update',{id:req.params.id, name:results[0].name,age:results[0].age})
+       
+        res.render('update',{id:req.params.id,name:results[0].name,age:results[0].age, email:results[0].email,bairro:results[0].bairro,cidade:results[0].cidade,ensino:results[0].ensino,nascimento:results[0].nascimento})
+         
     })
     
 
 })
 
 app.post('/update/atualiza', urlencodeparser, function(req,res){
-    sql.query('update user set name=?, age=?, email=?, bairro=?, cidade=?, Escolaridde=?, nascimento=?, where id=?', [req.body.name,req.body.age,req.body.email,req.body.bairro,req.body.cidade,req.body.Escolaridade,req.body.nascimento,req.body.id])
-    res.render('atualiza')
+    sql.query('update user set name=?, age=?, email=?, bairro=?, cidade=?, ensino=?, nascimento=? where id=?', [req.body.name,req.body.age,req.body.email,req.body.bairro,req.body.cidade,req.body.ensino,req.body.nascimento,req.body.id])
+     res.render('atualiza')
 })
 
 
